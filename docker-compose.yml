@@ -1,0 +1,12 @@
+version: '3'
+services:
+  frontend:
+    image: admin
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    expose:
+      - "80"
+    ports:
+      - "80:80"

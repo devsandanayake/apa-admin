@@ -1,0 +1,33 @@
+
+# Stage 1: Build the React application
+FROM node:20-alpine AS build
+
+# Set the working directory
+WORKDIR /usr/src/react-app
+
+# Copy package.json and yarn.lock to the working directory
+COPY package.json yarn.lock ./
+
+# Install dependencies
+RUN yarn install
+
+# Copy the rest of the application files
+COPY . .
+
+# Build the React application
+RUN yarn build
+
+# Stage 2: Serve the built files with Nginx
+FROM nginx:alpine
+
+# Copy the built files from the previous stage
+COPY --from=build /usr/src/react-app/build /usr/share/nginx/html
+
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the port the app runs on
+EXPOSE 80
+
+# No need to define CMD as Nginx's default command will be used
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
