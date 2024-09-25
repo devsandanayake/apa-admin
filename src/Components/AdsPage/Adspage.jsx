@@ -54,7 +54,19 @@ export default function Adspage() {
       
       {postState.loading && <p className="text-blue-600 text-center">Loading...</p>}
       {postState.error && <p className="text-red-600 text-center">{postState.error}</p>}
-
+       
+        {/* user Section */}
+      <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
+        <div className='flex items-center gap-4'>
+          <TfiAngleDoubleRight className='text-blue-500 text-2xl'/>
+          <p className="font-semibold text-xl">Published Details</p>
+        </div>
+        <div className="ml-9 mt-4 space-y-2">
+                   <p className="text-gray-600"><strong>Published By:</strong> <a href={`/userDetails/${postState.data.username}`}>{postState.data.username}</a></p>
+          <p className="text-gray-600"><strong>Published Date:</strong> {postState.data.publishedAt}</p>
+        </div>
+      </div>
+      
       {/* Title Section */}
       <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
         <div className='flex items-center gap-4'>
